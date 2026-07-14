@@ -105,18 +105,15 @@ const Sound = (() => {
       src.connect(filter).connect(g).connect(c.destination);
       src.start();
     },
-    // Triumphant fanfare for the gender reveal.
-    fanfare() {
+    // Drumroll under the "And the winner is…" suspense (~2.6s).
+    drumroll() {
       if (!enabled) return;
-      const notes = [523.25, 659.25, 783.99, 1046.5];
-      notes.forEach((f, i) => {
-        tone({ freq: f, start: i * 0.16, dur: 0.5, type: "triangle", gain: 0.3 });
-      });
-      tone({ freq: 1046.5, start: 0.7, dur: 0.9, type: "triangle", gain: 0.32 });
-      this && this.cheer && this.cheer();
+      for (let i = 0; i < 26; i++) {
+        tone({ freq: 110 + (i % 2) * 8, start: i * 0.1, dur: 0.09, type: "square", gain: 0.16 });
+      }
     },
   };
-  // Bind cheer into fanfare context.
+  // Triumphant fanfare for the winner reveal.
   api.fanfare = function () {
     if (!enabled) return;
     const notes = [523.25, 659.25, 783.99, 1046.5];

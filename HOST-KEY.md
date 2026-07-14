@@ -6,7 +6,7 @@
 
 **Game-screen keys:** `1`–`8` reveal answer · `X` strike · `C` clear strikes ·
 `→`/`←` next/prev question · `Q`/`W` award pot to Team 1/Team 2 ·
-`R` gender reveal 🎉 · `H` hide host panel
+`R` winner reveal 🏆 · `H` hide host panel
 
 ---
 

@@ -27,16 +27,6 @@
         </label>
       </div>
 
-      <div class="setup-secret">
-        <p class="secret-label">🤫 Host only — set the big reveal secretly:</p>
-        <div class="secret-buttons">
-          <button class="secret-btn" data-gender="boy">It's a Boy 💙</button>
-          <button class="secret-btn" data-gender="girl">It's a Girl 💖</button>
-          <button class="secret-btn secret-random" data-gender="random">Surprise Me 🎲</button>
-        </div>
-        <p id="secret-status" class="secret-status">No reveal set yet</p>
-      </div>
-
       <label class="sound-toggle">
         <input id="sound-check" type="checkbox" checked />
         <span>🔊 Sound effects</span>
@@ -71,7 +61,9 @@
 
     <div class="question-bar" id="question-bar">Press “Next Question” to begin</div>
 
-    <main class="board" id="board"></main>
+    <div class="board-frame">
+      <main class="board" id="board"></main>
+    </div>
 
     <!-- Host control panel -->
     <div class="controls" id="controls">
@@ -87,23 +79,23 @@
         <button class="ctrl ctrl-blue" data-action="award-2" id="award-2-btn">Team Blue</button>
       </div>
       <div class="controls-row">
-        <button class="ctrl ctrl-reveal" data-action="reveal">🎉 GENDER REVEAL 🎉</button>
+        <button class="ctrl ctrl-reveal" data-action="winner">🏆 AND THE WINNER IS… 🏆</button>
         <button class="ctrl" data-action="restart">↺ Restart</button>
         <button class="ctrl" data-action="hide-controls">Hide Panel</button>
       </div>
       <p class="controls-hint">
         Keys: <b>1–8</b> reveal answer · <b>X</b> strike · <b>→/←</b> change question ·
-        <b>Q/W</b> award pot · <b>H</b> hide panel · <b>R</b> reveal
+        <b>Q/W</b> award pot · <b>H</b> hide panel · <b>R</b> winner reveal
       </p>
     </div>
     <button id="show-controls" class="show-controls" hidden>⚙ Show Host Panel</button>
   </section>
 
-  <!-- ===================== REVEAL OVERLAY ===================== -->
+  <!-- ===================== WINNER OVERLAY ===================== -->
   <div id="reveal" class="reveal-overlay">
     <canvas id="confetti"></canvas>
     <div class="reveal-content">
-      <div class="reveal-pre" id="reveal-pre">The baby is a...</div>
+      <div class="reveal-pre" id="reveal-pre">And the winner is…</div>
       <div class="reveal-word" id="reveal-word"></div>
       <div class="reveal-emoji" id="reveal-emoji"></div>
       <button id="reveal-close" class="big-btn reveal-close">Close</button>
