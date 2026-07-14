@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Host Answer Key — Family Feud Gender Reveal</title>
+  <style>
+    /* Standalone styles so this page loads fast on a phone. */
+    :root {
+      --navy-0: #0a1a4f;
+      --navy-1: #13276e;
+      --gold: #ffd54a;
+      --pink: #ff5fa2;
+      --blue: #3d8bff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(160deg, var(--navy-1), var(--navy-0) 70%);
+      color: #fff;
+      padding: 16px 14px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    h1 {
+      color: var(--gold);
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .subtitle {
+      font-size: 13px;
+      opacity: 0.75;
+      margin-top: 4px;
+    }
+    .warning {
+      background: rgba(255, 213, 74, 0.12);
+      border: 1px dashed rgba(255, 213, 74, 0.5);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      margin: 14px 0;
+      line-height: 1.45;
+    }
+    .cheats {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-bottom: 18px;
+      line-height: 1.7;
+    }
+    .cheats b { color: var(--gold); }
+    .question-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .q-number {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy-0);
+      font-weight: bold;
+      font-size: 12px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+    .q-prompt {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    td {
+      padding: 7px 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 15px;
+    }
+    td.key {
+      width: 34px;
+      text-align: center;
+      font-weight: bold;
+      color: var(--navy-0);
+      background: var(--gold);
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    td.pts {
+      width: 44px;
+      text-align: right;
+      font-weight: bold;
+      color: var(--gold);
+    }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.6;
+      margin-top: 24px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎤 Host Answer Key</h1>
+    <div class="subtitle">Family Feud — Gender Reveal Edition</div>
+  </header>
+
+  <div class="warning">
+    🤫 <b>Keep this page on YOUR phone only</b> — don't cast this tab!
+    The number next to each answer is the key you press (or slot you tap)
+    on the game screen to reveal it.
+  </div>
+
+  <div class="cheats">
+    <b>Game-screen keys:</b> <b>1–8</b> reveal answer · <b>X</b> strike ·
+    <b>C</b> clear strikes · <b>→ / ←</b> next / prev question ·
+    <b>Q / W</b> award pot to Team 1 / Team 2 · <b>R</b> gender reveal ·
+    <b>H</b> hide host panel
+  </div>
+
+  <div id="list"></div>
+
+  <footer>
+    Answers are numbered exactly as they appear on the game board
+    (sorted highest points first).<br />
+    Edit questions in <code>js/questions.js</code>.
+  </footer>
+
+  <script src="js/questions.js"></script>
+  <script>
+    // Render every question with its answers in board order, so the number
+    // shown here always matches the key the host presses on the game screen.
+    const list = document.getElementById("list");
+    QUESTIONS.forEach((q, qi) => {
+      const sorted = [...q.answers].sort((a, b) => b.points - a.points);
+      const card = document.createElement("div");
+      card.className = "question-card";
+
+      const rows = sorted
+        .map(
+          (a, i) =>
+            `<tr><td class="key">${i + 1}</td><td>${a.text}</td><td class="pts">${a.points}</td></tr>`
+        )
+        .join("");
+
+      card.innerHTML = `
+        <span class="q-number">Question ${qi + 1} of ${QUESTIONS.length}</span>
+        <div class="q-prompt">${q.prompt}</div>
+        <table>${rows}</table>
+      `;
+      list.appendChild(card);
+    });
+  </script>
+</body>
+</html>

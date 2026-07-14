@@ -38,14 +38,23 @@ You have two easy options to get it on the TV:
    - Leave sound on for the classic *ding!* and buzzer.
    - Click **Start the Game**.
 
-2. **Playing a round** (just like the TV show)
+2. **Open the host answer key on your phone** 📱
+   - Open **`host.html`** on your phone (or a second screen the guests
+     can't see). It lists every question with all its answers, points,
+     and — crucially — the **number** of the board slot each answer is
+     hiding in. When someone guesses "Pickles" and your key shows
+     Pickles = #2, press `2` on the game screen to flip it.
+   - ⚠️ Never cast the answer-key tab — keep it on your phone only.
+
+3. **Playing a round** (just like the TV show)
    - Read the survey question at the top out loud.
-   - When a family member guesses an answer that's on the board, reveal it.
+   - When a family member guesses an answer that's on the board, check
+     your phone key for its number, and reveal it.
    - Wrong or not-on-the-board guesses earn a **strike** (❌❌❌).
    - Each revealed answer adds its points to the **POT** in the middle.
    - When a team wins the round, **award the pot** to them.
 
-3. **The moment everyone's waiting for**
+4. **The moment everyone's waiting for**
    - Whenever you're ready, hit the glowing **🎉 GENDER REVEAL 🎉** button.
    - Confetti rains, a fanfare plays, and the TV announces **Boy!** or **Girl!**
 
@@ -79,7 +88,8 @@ the board. No build step: save the file and refresh the browser.
 ## 🗂 What's in here
 
 ```
-index.html        The whole game (open this)
+index.html        The whole game (open this on the TV)
+host.html         Host answer key (open this on your phone)
 css/styles.css    Board styling, tuned for a big TV
 js/questions.js   The survey questions — edit these!
 js/audio.js       Sound effects (generated live, no audio files)
