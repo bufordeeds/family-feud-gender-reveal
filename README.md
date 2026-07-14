@@ -39,12 +39,13 @@ You have two easy options to get it on the TV:
    - Click **Start the Game**.
 
 2. **Open the host answer key on your phone** 📱
-   - Open **`host.html`** on your phone (or a second screen the guests
-     can't see). It lists every question with all its answers, points,
-     and — crucially — the **number** of the board slot each answer is
-     hiding in. When someone guesses "Pickles" and your key shows
-     Pickles = #2, press `2` on the game screen to flip it.
-   - ⚠️ Never cast the answer-key tab — keep it on your phone only.
+   - Open **[`HOST-KEY.md`](HOST-KEY.md)** in the GitHub mobile app (or
+     any second screen the guests can't see). It lists every question
+     with all its answers, points, and — crucially — the **number** of
+     the board slot each answer is hiding in. When someone guesses
+     "Pickles" and your key shows Pickles = #2, press `2` on the game
+     screen to flip it.
+   - ⚠️ Keep the key on your phone only — never cast that screen.
 
 3. **Playing a round** (just like the TV show)
    - Read the survey question at the top out loud.
@@ -89,7 +90,7 @@ the board. No build step: save the file and refresh the browser.
 
 ```
 index.html        The whole game (open this on the TV)
-host.html         Host answer key (open this on your phone)
+HOST-KEY.md       Host answer key (open in GitHub app on your phone)
 css/styles.css    Board styling, tuned for a big TV
 js/questions.js   The survey questions — edit these!
 js/audio.js       Sound effects (generated live, no audio files)
