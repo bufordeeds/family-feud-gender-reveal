@@ -1,6 +1,6 @@
 # Deploys the game to GitHub Pages.
-# Runs on every push to main (and the initial feature branch), or manually
-# from the Actions tab. The site is served at:
+# Runs on every push to main, or manually from the Actions tab.
+# The site is served at:
 #   https://bufordeeds.github.io/family-feud-gender-reveal/
 name: Deploy to GitHub Pages
 
@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - main
-      - claude/family-feud-gender-reveal-5dds8g
   workflow_dispatch:
 
 permissions:
