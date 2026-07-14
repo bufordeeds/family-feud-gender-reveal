@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Family Feud — Gender Reveal Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- ===================== SETUP SCREEN ===================== -->
+  <section id="setup" class="screen active">
+    <div class="setup-card">
+      <div class="setup-baby">👶</div>
+      <h1 class="setup-title">Family&nbsp;Feud</h1>
+      <p class="setup-subtitle">Gender Reveal Edition</p>
+
+      <div class="setup-teams">
+        <label class="field team-pink">
+          <span>Team 1 Name</span>
+          <input id="team1-name" type="text" maxlength="18" value="Team Pink" />
+        </label>
+        <span class="vs">VS</span>
+        <label class="field team-blue">
+          <span>Team 2 Name</span>
+          <input id="team2-name" type="text" maxlength="18" value="Team Blue" />
+        </label>
+      </div>
+
+      <div class="setup-secret">
+        <p class="secret-label">🤫 Host only — set the big reveal secretly:</p>
+        <div class="secret-buttons">
+          <button class="secret-btn" data-gender="boy">It's a Boy 💙</button>
+          <button class="secret-btn" data-gender="girl">It's a Girl 💖</button>
+          <button class="secret-btn secret-random" data-gender="random">Surprise Me 🎲</button>
+        </div>
+        <p id="secret-status" class="secret-status">No reveal set yet</p>
+      </div>
+
+      <label class="sound-toggle">
+        <input id="sound-check" type="checkbox" checked />
+        <span>🔊 Sound effects</span>
+      </label>
+
+      <button id="start-btn" class="big-btn">Start the Game ▶</button>
+      <p class="setup-hint">Tip: open this in Chrome and cast the tab to your TV, or plug your laptop into the TV with HDMI.</p>
+    </div>
+  </section>
+
+  <!-- ===================== GAME SCREEN ===================== -->
+  <section id="game" class="screen">
+    <header class="game-header">
+      <div class="team-score team-pink" id="score-card-1">
+        <div class="team-name" id="score-name-1">Team Pink</div>
+        <div class="team-points" id="score-points-1">0</div>
+      </div>
+
+      <div class="center-stack">
+        <div class="round-pot">
+          <div class="pot-label">POT</div>
+          <div class="pot-value" id="pot-value">0</div>
+        </div>
+        <div class="strikes" id="strikes"></div>
+      </div>
+
+      <div class="team-score team-blue" id="score-card-2">
+        <div class="team-name" id="score-name-2">Team Blue</div>
+        <div class="team-points" id="score-points-2">0</div>
+      </div>
+    </header>
+
+    <div class="question-bar" id="question-bar">Press “Next Question” to begin</div>
+
+    <main class="board" id="board"></main>
+
+    <!-- Host control panel -->
+    <div class="controls" id="controls">
+      <div class="controls-row">
+        <button class="ctrl" data-action="prev">⟵ Prev Q</button>
+        <button class="ctrl" data-action="next">Next Q ⟶</button>
+        <button class="ctrl ctrl-strike" data-action="strike">❌ Strike</button>
+        <button class="ctrl" data-action="clear-strikes">Clear Strikes</button>
+      </div>
+      <div class="controls-row">
+        <span class="award-label">Award pot to:</span>
+        <button class="ctrl ctrl-pink" data-action="award-1" id="award-1-btn">Team Pink</button>
+        <button class="ctrl ctrl-blue" data-action="award-2" id="award-2-btn">Team Blue</button>
+      </div>
+      <div class="controls-row">
+        <button class="ctrl ctrl-reveal" data-action="reveal">🎉 GENDER REVEAL 🎉</button>
+        <button class="ctrl" data-action="restart">↺ Restart</button>
+        <button class="ctrl" data-action="hide-controls">Hide Panel</button>
+      </div>
+      <p class="controls-hint">
+        Keys: <b>1–8</b> reveal answer · <b>X</b> strike · <b>→/←</b> change question ·
+        <b>Q/W</b> award pot · <b>H</b> hide panel · <b>R</b> reveal
+      </p>
+    </div>
+    <button id="show-controls" class="show-controls" hidden>⚙ Show Host Panel</button>
+  </section>
+
+  <!-- ===================== REVEAL OVERLAY ===================== -->
+  <div id="reveal" class="reveal-overlay">
+    <canvas id="confetti"></canvas>
+    <div class="reveal-content">
+      <div class="reveal-pre" id="reveal-pre">The baby is a...</div>
+      <div class="reveal-word" id="reveal-word"></div>
+      <div class="reveal-emoji" id="reveal-emoji"></div>
+      <button id="reveal-close" class="big-btn reveal-close">Close</button>
+    </div>
+  </div>
+
+  <script src="js/questions.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
