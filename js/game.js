@@ -26,7 +26,7 @@
     pot: 0,
     scores: [0, 0],
     activeTeam: null, // 0, 1, or null
-    secretGender: null, // "boy" | "girl"
+    teamNames: ["Team Pink", "Team Blue"],
     started: false,
   };
 
@@ -36,23 +36,6 @@
   }
 
   // ================= SETUP =================
-  const secretButtons = document.querySelectorAll(".secret-btn");
-  secretButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      Sound.unlock();
-      Sound.click();
-      let g = btn.dataset.gender;
-      if (g === "random") {
-        g = Math.random() < 0.5 ? "boy" : "girl";
-      }
-      state.secretGender = g;
-      secretButtons.forEach((b) => b.classList.remove("selected"));
-      btn.classList.add("selected");
-      // Deliberately vague status so onlookers can't tell what was picked.
-      el("secret-status").textContent = "✓ Reveal is locked in and hidden";
-    });
-  });
-
   el("sound-check").addEventListener("change", (e) => {
     Sound.setEnabled(e.target.checked);
   });
@@ -61,12 +44,9 @@
 
   function startGame() {
     Sound.unlock();
-    if (!state.secretGender) {
-      // Default to a coin flip if the host forgot to set it.
-      state.secretGender = Math.random() < 0.5 ? "boy" : "girl";
-    }
     const t1 = el("team1-name").value.trim() || "Team Pink";
     const t2 = el("team2-name").value.trim() || "Team Blue";
+    state.teamNames = [t1, t2];
     el("score-name-1").textContent = t1;
     el("score-name-2").textContent = t2;
     el("award-1-btn").textContent = t1;
@@ -87,7 +67,10 @@
     const answers = sortedAnswers(q);
 
     questionBar.textContent = q.prompt;
-    boardEl.classList.toggle("single-col", answers.length <= 5);
+    // Show-style layout: answers run DOWN the left column (1,2,3...) then
+    // down the right (4,5,6...). Column flow needs an explicit row count.
+    const rows = Math.ceil(answers.length / 2);
+    boardEl.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
 
     answers.forEach((ans, i) => {
       const slot = document.createElement("div");
@@ -114,7 +97,7 @@
     });
 
     // Pad to an even number of cells for a tidy two-column grid.
-    if (!boardEl.classList.contains("single-col") && answers.length % 2 !== 0) {
+    if (answers.length % 2 !== 0) {
       const filler = document.createElement("div");
       filler.className = "slot empty";
       boardEl.appendChild(filler);
@@ -212,23 +195,45 @@
     }
   }
 
-  // ================= THE BIG REVEAL =================
+  // ================= WINNER FINALE =================
   let confettiAnim = null;
+  let winnerTimer = null;
 
-  function doReveal() {
-    const gender = state.secretGender || "boy";
-    revealOverlay.classList.remove("boy", "girl");
-    revealOverlay.classList.add("show", gender);
+  function doWinner() {
+    const [s1, s2] = state.scores;
+    let cls, word, emoji, palette;
+    if (s1 === s2) {
+      cls = "win-tie";
+      word = "It's a Tie!";
+      emoji = "🤝 🏆 🤝";
+      palette = "tie";
+    } else {
+      const winner = s1 > s2 ? 0 : 1;
+      cls = winner === 0 ? "win-pink" : "win-blue";
+      word = `${state.teamNames[winner]}!`;
+      emoji = "🏆 🎉 🏆";
+      palette = winner === 0 ? "pink" : "blue";
+    }
 
-    el("reveal-word").textContent = gender === "boy" ? "Boy!" : "Girl!";
-    el("reveal-emoji").textContent = gender === "boy" ? "💙 👶 💙" : "💖 👶 💖";
+    el("reveal-word").textContent = word;
+    el("reveal-emoji").textContent = emoji;
+    revealOverlay.classList.remove("win-pink", "win-blue", "win-tie");
+    revealOverlay.classList.add("show", "suspense", cls);
 
-    Sound.fanfare();
-    startConfetti(gender);
+    // Build suspense: drumroll under the pulsing "And the winner is…",
+    // then pop the name with confetti and a fanfare.
+    Sound.drumroll();
+    clearTimeout(winnerTimer);
+    winnerTimer = setTimeout(() => {
+      revealOverlay.classList.remove("suspense");
+      Sound.fanfare();
+      startConfetti(palette);
+    }, 2600);
   }
 
   function closeReveal() {
-    revealOverlay.classList.remove("show");
+    clearTimeout(winnerTimer);
+    revealOverlay.classList.remove("show", "suspense");
     stopConfetti();
   }
 
@@ -245,12 +250,15 @@
   }
   window.addEventListener("resize", sizeCanvas);
 
-  function startConfetti(gender) {
+  const CONFETTI_PALETTES = {
+    blue: ["#3d8bff", "#1560d8", "#9ec9ff", "#ffffff", "#ffd54a"],
+    pink: ["#ff5fa2", "#e11d74", "#ffb3d1", "#ffffff", "#ffd54a"],
+    tie: ["#ffd54a", "#f5b301", "#ff5fa2", "#3d8bff", "#ffffff"],
+  };
+
+  function startConfetti(paletteName) {
     sizeCanvas();
-    const palette =
-      gender === "boy"
-        ? ["#3d8bff", "#1560d8", "#9ec9ff", "#ffffff", "#ffd54a"]
-        : ["#ff5fa2", "#e11d74", "#ffb3d1", "#ffffff", "#ffd54a"];
+    const palette = CONFETTI_PALETTES[paletteName] || CONFETTI_PALETTES.tie;
     pieces = [];
     for (let i = 0; i < 240; i++) {
       pieces.push(makePiece(palette));
@@ -339,7 +347,7 @@
       case "clear-strikes": clearStrikes(); break;
       case "award-1": awardPot(0); break;
       case "award-2": awardPot(1); break;
-      case "reveal": doReveal(); break;
+      case "winner": doWinner(); break;
       case "restart": restart(); break;
       case "hide-controls":
         el("controls").style.display = "none";
@@ -375,7 +383,7 @@
     } else if (key === "w") {
       awardPot(1);
     } else if (key === "r") {
-      doReveal();
+      doWinner();
     } else if (key === "h") {
       const c = el("controls");
       const hidden = c.style.display === "none";
