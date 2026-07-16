@@ -33,6 +33,7 @@
       </label>
 
       <button id="start-btn" class="big-btn">Start the Game ▶</button>
+      <button id="setup-howto-btn" class="howto-btn">📋 How to Play</button>
       <p class="setup-hint">Tip: open this in Chrome and cast the tab to your TV, or plug your laptop into the TV with HDMI.</p>
     </div>
   </section>
@@ -81,16 +82,61 @@
       </div>
       <div class="controls-row">
         <button class="ctrl ctrl-reveal" data-action="winner">🏆 AND THE WINNER IS… 🏆</button>
+        <button class="ctrl" data-action="open-howto">📋 How to Play</button>
         <button class="ctrl" data-action="restart">↺ Restart</button>
         <button class="ctrl" data-action="hide-controls">Hide Panel</button>
       </div>
       <p class="controls-hint">
         Keys: <b>1–8</b> reveal answer · <b>X</b> strike · <b>→/←</b> change question ·
-        <b>Q/W</b> award pot · <b>H</b> hide panel · <b>R</b> winner reveal
+        <b>Q/W</b> award pot · <b>H</b> hide panel · <b>R</b> winner reveal · <b>?</b> how to play
       </p>
     </div>
     <button id="show-controls" class="show-controls" hidden>⚙ Show Host Panel</button>
   </section>
+
+  <!-- ===================== HOW TO PLAY OVERLAY ===================== -->
+  <div id="howto-overlay" class="howto-overlay">
+    <div class="howto-card">
+      <button id="howto-close" class="howto-close" aria-label="Close">✕</button>
+      <h2 class="howto-title">📋 How to Play</h2>
+
+      <div class="howto-steps">
+        <div class="howto-step">
+          <div class="howto-num">1</div>
+          <div class="howto-text">
+            <h3>The Face-Off</h3>
+            <p>One player from each team steps up. First to shout an answer gets to guess. Hit the <b>#1 answer</b> and your team takes control. Miss, and the other player gets a shot at a higher-ranked answer to steal control.</p>
+          </div>
+        </div>
+        <div class="howto-step">
+          <div class="howto-num">2</div>
+          <div class="howto-text">
+            <h3>Play the Board</h3>
+            <p>The team in control guesses answers one at a time — <b>no huddling</b>. Right answers reveal on the board and add to the pot. Wrong answers earn a <b>strike ❌</b>.</p>
+          </div>
+        </div>
+        <div class="howto-step">
+          <div class="howto-num">3</div>
+          <div class="howto-text">
+            <h3>Three Strikes → Steal</h3>
+            <p>❌❌❌ and it's the other team's turn — they huddle and get <b>ONE guess</b>. On the board? They steal the whole pot! Miss, and the first team keeps it.</p>
+          </div>
+        </div>
+        <div class="howto-step">
+          <div class="howto-num">🏆</div>
+          <div class="howto-text">
+            <h3>Winning</h3>
+            <p>Play as many questions as you like. Whoever has the most points at the end wins — hit <b>"And the Winner Is…"</b> for the big finale!</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="howto-hint">
+        Host keys: <b>1–8</b> reveal answer · <b>X</b> strike · <b>Q/W</b> award pot ·
+        <b>→/←</b> next/prev question · <b>R</b> winner reveal
+      </p>
+    </div>
+  </div>
 
   <!-- ===================== WINNER OVERLAY ===================== -->
   <div id="reveal" class="reveal-overlay">

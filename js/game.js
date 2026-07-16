@@ -17,6 +17,7 @@
   const potValue = el("pot-value");
   const strikesEl = el("strikes");
   const revealOverlay = el("reveal");
+  const howtoOverlay = el("howto-overlay");
 
   // ---------- Game state ----------
   const state = {
@@ -41,6 +42,21 @@
   });
 
   el("start-btn").addEventListener("click", startGame);
+
+  // ================= HOW TO PLAY =================
+  function openHowTo() {
+    Sound.click();
+    howtoOverlay.classList.add("show");
+  }
+  function closeHowTo() {
+    howtoOverlay.classList.remove("show");
+  }
+  el("setup-howto-btn").addEventListener("click", openHowTo);
+  el("howto-close").addEventListener("click", closeHowTo);
+  // Click the dark backdrop (outside the card) to dismiss.
+  howtoOverlay.addEventListener("click", (e) => {
+    if (e.target === howtoOverlay) closeHowTo();
+  });
 
   function startGame() {
     Sound.unlock();
@@ -114,8 +130,16 @@
     const w = boardFrameEl.clientWidth;
     const h = boardFrameEl.clientHeight;
     if (w === 0 || h === 0) return; // screen not visible yet
-    const inset = 9; // keep bulbs just inside the frame's border
-    const cornerRadius = 26; // slightly inside the frame's own 30px radius
+
+    // Center the bulb ring in the navy gap between the frame's outer
+    // border and the inner board panel's edge — that gap is exactly the
+    // frame's own (responsive) padding, so read it live rather than
+    // hardcoding a value that would only be right at one screen size.
+    const style = getComputedStyle(boardFrameEl);
+    const padding = parseFloat(style.paddingLeft) || 20;
+    const frameRadius = parseFloat(style.borderRadius) || 30;
+    const inset = padding / 2;
+    const cornerRadius = Math.max(4, frameRadius - inset);
     const spacing = 28;
 
     marqueeEl.style.width = `${w}px`;
@@ -465,6 +489,7 @@
       case "award-1": awardPot(0); break;
       case "award-2": awardPot(1); break;
       case "winner": doWinner(); break;
+      case "open-howto": openHowTo(); break;
       case "restart": restart(); break;
       case "hide-controls":
         el("controls").style.display = "none";
@@ -477,6 +502,18 @@
   document.addEventListener("keydown", (e) => {
     // Ignore while typing in the setup inputs.
     if (e.target.tagName === "INPUT") return;
+
+    // "?" opens the how-to overlay from either screen; Escape/Enter close
+    // it. Neither depends on the game having started.
+    if (howtoOverlay.classList.contains("show")) {
+      if (e.key === "Escape" || e.key === "Enter") closeHowTo();
+      return;
+    }
+    if (e.key === "?") {
+      openHowTo();
+      return;
+    }
+
     if (!state.started) return;
 
     if (revealOverlay.classList.contains("show")) {
