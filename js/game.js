@@ -144,8 +144,38 @@
     if (state.qIndex < 0) return;
     if (state.strikes >= 3) return;
     state.strikes += 1;
-    renderStrikes();
     Sound.strike();
+
+    // The show moment: a giant ❌ slams into the middle of the screen,
+    // hangs for a beat, then flies down into its spot in the strike row.
+    const small = document.createElement("span");
+    small.className = "strike-x";
+    small.style.visibility = "hidden";
+    strikesEl.appendChild(small);
+    small.textContent = "✖";
+
+    const overlay = document.createElement("div");
+    overlay.className = "strike-big-overlay";
+    const bigX = document.createElement("span");
+    bigX.className = "big-x";
+    bigX.textContent = "✖";
+    overlay.appendChild(bigX);
+    document.body.appendChild(overlay);
+
+    setTimeout(() => {
+      // FLIP: translate + shrink the big X onto the small slot's position.
+      const from = bigX.getBoundingClientRect();
+      const to = small.getBoundingClientRect();
+      const dx = to.left + to.width / 2 - (from.left + from.width / 2);
+      const dy = to.top + to.height / 2 - (from.top + from.height / 2);
+      const scale = to.height / from.height;
+      bigX.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
+
+      setTimeout(() => {
+        small.style.visibility = "";
+        overlay.remove();
+      }, 480);
+    }, 700);
   }
 
   function clearStrikes() {
