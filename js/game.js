@@ -131,15 +131,26 @@
     const h = boardFrameEl.clientHeight;
     if (w === 0 || h === 0) return; // screen not visible yet
 
-    // Center the bulb ring in the navy gap between the frame's outer
-    // border and the inner board panel's edge — that gap is exactly the
-    // frame's own (responsive) padding, so read it live rather than
-    // hardcoding a value that would only be right at one screen size.
     const style = getComputedStyle(boardFrameEl);
-    const padding = parseFloat(style.paddingLeft) || 20;
-    const frameRadius = parseFloat(style.borderRadius) || 30;
-    const inset = padding / 2;
-    const cornerRadius = Math.max(4, frameRadius - inset);
+    const borderWidth = parseFloat(style.borderLeftWidth) || 2;
+    const frameInnerRadius = Math.max(0, (parseFloat(style.borderRadius) || 30) - borderWidth);
+
+    // The true gap the bulbs should center in runs from the frame's inner
+    // border edge to the nearest answer CARD (not .board's own rectangle
+    // — .board has its own separate padding around the grid, on top of
+    // the frame's padding, so hardcoding just one of those undershoots
+    // the real gap). Measure it live off a rendered slot instead of
+    // stacking two CSS padding values by hand.
+    const frameRect = boardFrameEl.getBoundingClientRect();
+    const firstSlot = boardEl.querySelector(".slot:not(.empty)");
+    let inset = 20; // fallback for the rare frame before any slot exists
+    if (firstSlot) {
+      const slotRect = firstSlot.getBoundingClientRect();
+      const gapLeft = slotRect.left - (frameRect.left + borderWidth);
+      const gapTop = slotRect.top - (frameRect.top + borderWidth);
+      inset = Math.max(4, (gapLeft + gapTop) / 4);
+    }
+    const cornerRadius = Math.max(4, frameInnerRadius - inset);
     const spacing = 28;
 
     marqueeEl.style.width = `${w}px`;

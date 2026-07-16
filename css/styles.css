@@ -385,7 +385,11 @@ body {
   gap: 1.2vh 1.6vw;
   padding: clamp(10px, 1.6vh, 18px);
   min-height: 0;
-  border-radius: 18px;
+  /* Keep this corner concentric with .board-frame's: frame's outer
+     radius (30px) minus its border (2px) minus its padding (the exact
+     gap .board sits inset by) — otherwise the two curves have different
+     centers and nothing can look centered between them at the corner. */
+  border-radius: calc(30px - 2px - clamp(14px, 2.4vh, 26px));
   background: linear-gradient(180deg, #0e2158, #081540);
   box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.5);
 }
