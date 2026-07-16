@@ -305,9 +305,6 @@ body {
 }
 
 /* ---------- The answer board ---------- */
-/* The marquee frame: a ring of gold "light bulbs" that blink alternately,
-   like the show's board. Two dot layers offset by half a cell; the inner
-   board panel covers the middle, so only the frame ring shows lights. */
 .board-frame {
   flex: 1;
   position: relative;
@@ -320,40 +317,39 @@ body {
   min-height: 0;
   display: flex;
 }
-/* Base layer: every bulb, glowing softly with a warm halo, breathing
-   in and out together. */
-.board-frame::before,
-.board-frame::after {
-  content: "";
+/* Marquee bulbs: individual elements placed by JS (see layoutMarqueeLights
+   in game.js) at even arc-length steps around the frame's actual rounded-
+   rect path, so the ring stays a single unbroken row at any screen size —
+   a CSS background dot-pattern can't follow a rounded corner evenly and
+   ends up bunched or clipped there. */
+.marquee-lights {
   position: absolute;
-  inset: 5px;
-  border-radius: 24px;
+  top: 0;
+  left: 0;
   pointer-events: none;
-  background-image: radial-gradient(
+  z-index: 0;
+}
+.bulb {
+  position: absolute;
+  width: var(--bulb-size, 12px);
+  height: var(--bulb-size, 12px);
+  margin-left: calc(var(--bulb-size, 12px) / -2);
+  margin-top: calc(var(--bulb-size, 12px) / -2);
+  border-radius: 50%;
+  background: radial-gradient(
     circle,
-    #fffbe8 0 3px,
-    #ffd54a 4.5px,
-    rgba(255, 213, 74, 0.5) 6px,
-    rgba(255, 213, 74, 0.15) 8.5px,
-    transparent 10px
+    #fffbe8 0%,
+    #ffd54a 45%,
+    rgba(255, 213, 74, 0.35) 72%,
+    transparent 85%
   );
-  background-size: 30px 30px;
-  background-position: 2px 2px;
-  animation: twinkle-glow 1.8s ease-in-out infinite alternate;
+  box-shadow: 0 0 6px 2px rgba(255, 213, 74, 0.55);
+  animation: bulb-twinkle var(--dur, 1.6s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
 }
-/* Sparkle layer: every other bulb flares brighter on its own rhythm, so
-   the row shimmers instead of blinking in unison. */
-.board-frame::after {
-  background-size: 60px 60px;
-  animation: twinkle-sparkle 1.15s ease-in-out infinite alternate;
-}
-@keyframes twinkle-glow {
-  from { opacity: 0.75; }
-  to { opacity: 1; }
-}
-@keyframes twinkle-sparkle {
-  from { opacity: 0; }
-  to { opacity: 1; filter: brightness(1.5); }
+@keyframes bulb-twinkle {
+  0%, 100% { opacity: 0.35; filter: brightness(0.8); }
+  50% { opacity: 1; filter: brightness(1.6); }
 }
 
 .board {

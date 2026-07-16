@@ -67,11 +67,50 @@ const Sound = (() => {
       tone({ freq: 880, dur: 0.18, type: "sine", gain: 0.35 });
       tone({ freq: 1320, start: 0.05, dur: 0.3, type: "sine", gain: 0.3 });
     },
-    // Wrong answer — the dreaded double buzzer.
+    // Wrong answer — the classic harsh "EHHHH" game-show buzzer: two
+    // detuned sawtooths beating against each other with a fast vibrato
+    // wobble, run through a low-pass filter for that electric-horn grit.
     strike() {
       if (!enabled) return;
-      tone({ freq: 160, dur: 0.35, type: "square", gain: 0.28 });
-      tone({ freq: 120, start: 0.18, dur: 0.4, type: "square", gain: 0.28 });
+      const c = ac();
+      const t0 = c.currentTime;
+      const dur = 0.85;
+
+      const osc1 = c.createOscillator();
+      const osc2 = c.createOscillator();
+      osc1.type = "sawtooth";
+      osc2.type = "sawtooth";
+      osc1.frequency.setValueAtTime(110, t0);
+      osc2.frequency.setValueAtTime(114, t0); // slight detune for buzz beating
+
+      const lfo = c.createOscillator();
+      const lfoGain = c.createGain();
+      lfo.frequency.value = 17; // fast wobble, like an electric buzzer horn
+      lfoGain.gain.value = 7;
+      lfo.connect(lfoGain);
+      lfoGain.connect(osc1.frequency);
+      lfoGain.connect(osc2.frequency);
+
+      const filter = c.createBiquadFilter();
+      filter.type = "lowpass";
+      filter.frequency.value = 950;
+
+      const g = c.createGain();
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(0.32, t0 + 0.03);
+      g.gain.setValueAtTime(0.32, t0 + dur * 0.72);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+
+      osc1.connect(filter);
+      osc2.connect(filter);
+      filter.connect(g).connect(c.destination);
+
+      lfo.start(t0);
+      osc1.start(t0);
+      osc2.start(t0);
+      lfo.stop(t0 + dur + 0.05);
+      osc1.stop(t0 + dur + 0.05);
+      osc2.stop(t0 + dur + 0.05);
     },
     // Round transition / reveal whoosh.
     whoosh() {

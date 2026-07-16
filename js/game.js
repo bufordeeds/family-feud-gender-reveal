@@ -57,7 +57,94 @@
     gameScreen.classList.add("active");
     Sound.whoosh();
     nextQuestion();
+    // The frame is invisible (display:none) until now, so it has zero
+    // size until the browser commits this layout change.
+    requestAnimationFrame(layoutMarqueeLights);
   }
+
+  // ================= MARQUEE LIGHTS =================
+  const boardFrameEl = el("board-frame");
+  const marqueeEl = el("marquee-lights");
+
+  // Walk the frame's actual rounded-rect outline and drop a bulb every
+  // ~28px of arc length, including smoothly through the four corners, so
+  // the ring is one continuous evenly-spaced row at any screen size.
+  function roundedRectPoints(w, h, r, spacing) {
+    r = Math.min(r, w / 2, h / 2);
+    const segments = [
+      { type: "line", x1: r, y1: 0, x2: w - r, y2: 0 }, // top
+      { type: "arc", cx: w - r, cy: r, r, a1: -Math.PI / 2, a2: 0 }, // top-right
+      { type: "line", x1: w, y1: r, x2: w, y2: h - r }, // right
+      { type: "arc", cx: w - r, cy: h - r, r, a1: 0, a2: Math.PI / 2 }, // bottom-right
+      { type: "line", x1: w - r, y1: h, x2: r, y2: h }, // bottom
+      { type: "arc", cx: r, cy: h - r, r, a1: Math.PI / 2, a2: Math.PI }, // bottom-left
+      { type: "line", x1: 0, y1: h - r, x2: 0, y2: r }, // left
+      { type: "arc", cx: r, cy: r, r, a1: Math.PI, a2: 1.5 * Math.PI }, // top-left
+    ].map((seg) => {
+      seg.length =
+        seg.type === "line"
+          ? Math.hypot(seg.x2 - seg.x1, seg.y2 - seg.y1)
+          : Math.abs(seg.a2 - seg.a1) * seg.r;
+      return seg;
+    });
+    const total = segments.reduce((sum, seg) => sum + seg.length, 0);
+    const count = Math.max(16, Math.round(total / spacing));
+    const points = [];
+    for (let i = 0; i < count; i++) {
+      let dist = (i * total) / count;
+      for (const seg of segments) {
+        if (dist <= seg.length) {
+          if (seg.type === "line") {
+            const t = seg.length === 0 ? 0 : dist / seg.length;
+            points.push({ x: seg.x1 + (seg.x2 - seg.x1) * t, y: seg.y1 + (seg.y2 - seg.y1) * t });
+          } else {
+            const a = seg.a1 + (seg.a2 - seg.a1) * (dist / seg.length);
+            points.push({ x: seg.cx + Math.cos(a) * seg.r, y: seg.cy + Math.sin(a) * seg.r });
+          }
+          break;
+        }
+        dist -= seg.length;
+      }
+    }
+    return points;
+  }
+
+  function layoutMarqueeLights() {
+    if (!boardFrameEl || !marqueeEl) return;
+    const w = boardFrameEl.clientWidth;
+    const h = boardFrameEl.clientHeight;
+    if (w === 0 || h === 0) return; // screen not visible yet
+    const inset = 9; // keep bulbs just inside the frame's border
+    const cornerRadius = 26; // slightly inside the frame's own 30px radius
+    const spacing = 28;
+
+    marqueeEl.style.width = `${w}px`;
+    marqueeEl.style.height = `${h}px`;
+    const points = roundedRectPoints(w - inset * 2, h - inset * 2, cornerRadius, spacing);
+
+    marqueeEl.innerHTML = "";
+    const frag = document.createDocumentFragment();
+    points.forEach((p, i) => {
+      const bulb = document.createElement("span");
+      bulb.className = "bulb";
+      bulb.style.left = `${p.x + inset}px`;
+      bulb.style.top = `${p.y + inset}px`;
+      // Alternate-index base rhythm plus a touch of per-bulb randomness so
+      // the ring shimmers rather than blinking in lockstep.
+      const dur = 1.3 + (i % 3) * 0.25 + Math.random() * 0.2;
+      const delay = (i % 2 === 0 ? 0 : dur / 2) + Math.random() * 0.15;
+      bulb.style.setProperty("--dur", `${dur.toFixed(2)}s`);
+      bulb.style.setProperty("--delay", `${delay.toFixed(2)}s`);
+      frag.appendChild(bulb);
+    });
+    marqueeEl.appendChild(frag);
+  }
+
+  let marqueeResizeTimer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(marqueeResizeTimer);
+    marqueeResizeTimer = setTimeout(layoutMarqueeLights, 150);
+  });
 
   // ================= BOARD RENDERING =================
   function renderBoard() {
