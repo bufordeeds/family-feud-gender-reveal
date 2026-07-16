@@ -7,39 +7,108 @@
  *
  * Want to customize? Edit this file — add, remove, or reword anything.
  * Keep 5-8 answers per question so they fit the board nicely.
+ *
+ * IMPORTANT: after editing, regenerate HOST-KEY.md so the host's cue
+ * card matches the board (see the note at the bottom of HOST-KEY.md).
  */
 const QUESTIONS = [
   {
-    prompt: "Name something people crave during pregnancy.",
+    prompt: "What foods has Casey craved during her pregnancy so far?",
     answers: [
-      { text: "Ice Cream", points: 30 },
-      { text: "Pickles", points: 24 },
-      { text: "Chocolate", points: 18 },
-      { text: "Chips / Salty Snacks", points: 12 },
-      { text: "Fruit", points: 9 },
-      { text: "Sour Candy", points: 7 },
+      { text: "Pickles with Tajín", points: 28 },
+      { text: "Melons", points: 22 },
+      { text: "Enchiladas & Tacos", points: 18 },
+      { text: "Hot Buffalo Wings", points: 14 },
+      { text: "Tuna Salad + Vinegar", points: 10 },
+      { text: "Pizza with Mustard", points: 8 },
     ],
   },
   {
-    prompt: "Name a popular baby BOY name.",
+    prompt: "Name something a baby spends a lot of time doing.",
     answers: [
-      { text: "Liam", points: 27 },
-      { text: "Noah", points: 23 },
-      { text: "James", points: 18 },
-      { text: "Oliver", points: 14 },
-      { text: "Elijah", points: 10 },
-      { text: "Mason", points: 8 },
+      { text: "Sleeping", points: 34 },
+      { text: "Crying", points: 24 },
+      { text: "Eating", points: 18 },
+      { text: "Pooping", points: 12 },
+      { text: "Drooling", points: 7 },
+      { text: "Staring at Things", points: 5 },
     ],
   },
   {
-    prompt: "Name a popular baby GIRL name.",
+    prompt: "Name a popular brand of diapers.",
     answers: [
-      { text: "Olivia", points: 28 },
-      { text: "Emma", points: 22 },
-      { text: "Ava", points: 17 },
-      { text: "Sophia", points: 14 },
-      { text: "Isabella", points: 11 },
-      { text: "Mia", points: 8 },
+      { text: "Pampers", points: 38 },
+      { text: "Huggies", points: 30 },
+      { text: "Luvs", points: 12 },
+      { text: "Honest", points: 9 },
+      { text: "Kirkland", points: 6 },
+      { text: "Hello Bello", points: 5 },
+    ],
+  },
+  {
+    prompt: "What's the best-tasting baby food flavor?",
+    answers: [
+      { text: "Banana", points: 30 },
+      { text: "Applesauce", points: 24 },
+      { text: "Sweet Potato", points: 18 },
+      { text: "Peach", points: 12 },
+      { text: "Pear", points: 9 },
+      { text: "Carrot", points: 7 },
+    ],
+  },
+  {
+    prompt: "What about their pre-baby lives do parents miss most?",
+    answers: [
+      { text: "Sleep", points: 36 },
+      { text: "Free Time", points: 22 },
+      { text: "Date Nights", points: 16 },
+      { text: "Traveling", points: 12 },
+      { text: "Peace & Quiet", points: 8 },
+      { text: "Spontaneity", points: 6 },
+    ],
+  },
+  {
+    prompt: "Name a classic lullaby.",
+    answers: [
+      { text: "Twinkle Twinkle Little Star", points: 32 },
+      { text: "Rock-a-Bye Baby", points: 26 },
+      { text: "Hush Little Baby", points: 18 },
+      { text: "You Are My Sunshine", points: 12 },
+      { text: "Brahms' Lullaby", points: 7 },
+      { text: "Itsy Bitsy Spider", points: 5 },
+    ],
+  },
+  {
+    prompt: "What's the most common nickname for a grandmother?",
+    answers: [
+      { text: "Grandma", points: 30 },
+      { text: "Nana", points: 24 },
+      { text: "Granny", points: 16 },
+      { text: "Mimi", points: 12 },
+      { text: "Gigi", points: 10 },
+      { text: "Abuela", points: 8 },
+    ],
+  },
+  {
+    prompt: "What do new moms wish new dads would help with more?",
+    answers: [
+      { text: "Diaper Changes", points: 30 },
+      { text: "Night Feedings", points: 26 },
+      { text: "Housework", points: 16 },
+      { text: "Getting Baby to Sleep", points: 12 },
+      { text: "Laundry", points: 9 },
+      { text: "Bath Time", points: 7 },
+    ],
+  },
+  {
+    prompt: "Name something a parent does to get their baby to sleep.",
+    answers: [
+      { text: "Rocking", points: 30 },
+      { text: "Singing a Lullaby", points: 24 },
+      { text: "Feeding a Bottle", points: 16 },
+      { text: "Driving Around", points: 12 },
+      { text: "White Noise", points: 10 },
+      { text: "Pacifier", points: 8 },
     ],
   },
   {
