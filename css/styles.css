@@ -348,7 +348,10 @@ body {
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 0;
+  /* Above .board (z-index: 1): the ring now reaches into .board's own
+     padding area (see layoutMarqueeLights), which .board's opaque
+     background would otherwise paint over and hide it behind. */
+  z-index: 2;
 }
 .bulb {
   position: absolute;
