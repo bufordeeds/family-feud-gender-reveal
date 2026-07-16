@@ -130,8 +130,16 @@
     const w = boardFrameEl.clientWidth;
     const h = boardFrameEl.clientHeight;
     if (w === 0 || h === 0) return; // screen not visible yet
-    const inset = 9; // keep bulbs just inside the frame's border
-    const cornerRadius = 26; // slightly inside the frame's own 30px radius
+
+    // Center the bulb ring in the navy gap between the frame's outer
+    // border and the inner board panel's edge — that gap is exactly the
+    // frame's own (responsive) padding, so read it live rather than
+    // hardcoding a value that would only be right at one screen size.
+    const style = getComputedStyle(boardFrameEl);
+    const padding = parseFloat(style.paddingLeft) || 20;
+    const frameRadius = parseFloat(style.borderRadius) || 30;
+    const inset = padding / 2;
+    const cornerRadius = Math.max(4, frameRadius - inset);
     const spacing = 28;
 
     marqueeEl.style.width = `${w}px`;
