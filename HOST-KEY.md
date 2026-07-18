@@ -12,19 +12,6 @@
 
 ## Question 1 of 18
 
-**What foods has Casey craved during her pregnancy so far?**
-
-| # | Answer | Points |
-|---|--------|-------:|
-| **1** | Pickles with Tajín | 28 |
-| **2** | Melons | 22 |
-| **3** | Enchiladas & Tacos | 18 |
-| **4** | Hot Buffalo Wings | 14 |
-| **5** | Tuna Salad + Vinegar | 10 |
-| **6** | Pizza with Mustard | 8 |
-
-## Question 2 of 18
-
 **Name something a baby spends a lot of time doing.**
 
 | # | Answer | Points |
@@ -36,7 +23,7 @@
 | **5** | Drooling | 7 |
 | **6** | Staring at Things | 5 |
 
-## Question 3 of 18
+## Question 2 of 18
 
 **Name a popular brand of diapers.**
 
@@ -49,7 +36,7 @@
 | **5** | Kirkland | 6 |
 | **6** | Hello Bello | 5 |
 
-## Question 4 of 18
+## Question 3 of 18
 
 **What's the best-tasting baby food flavor?**
 
@@ -62,7 +49,7 @@
 | **5** | Pear | 9 |
 | **6** | Carrot | 7 |
 
-## Question 5 of 18
+## Question 4 of 18
 
 **What about their pre-baby lives do parents miss most?**
 
@@ -75,7 +62,7 @@
 | **5** | Peace & Quiet | 8 |
 | **6** | Spontaneity | 6 |
 
-## Question 6 of 18
+## Question 5 of 18
 
 **Name a classic lullaby.**
 
@@ -88,7 +75,7 @@
 | **5** | Brahms' Lullaby | 7 |
 | **6** | Itsy Bitsy Spider | 5 |
 
-## Question 7 of 18
+## Question 6 of 18
 
 **What's the most common nickname for a grandmother?**
 
@@ -101,7 +88,7 @@
 | **5** | Gigi | 10 |
 | **6** | Abuela | 8 |
 
-## Question 8 of 18
+## Question 7 of 18
 
 **What do new moms wish new dads would help with more?**
 
@@ -114,7 +101,7 @@
 | **5** | Laundry | 9 |
 | **6** | Bath Time | 7 |
 
-## Question 9 of 18
+## Question 8 of 18
 
 **Name something a parent does to get their baby to sleep.**
 
@@ -127,7 +114,7 @@
 | **5** | White Noise | 10 |
 | **6** | Pacifier | 8 |
 
-## Question 10 of 18
+## Question 9 of 18
 
 **Name something you buy for a new baby.**
 
@@ -140,7 +127,7 @@
 | **5** | Car Seat | 10 |
 | **6** | Bottles | 8 |
 
-## Question 11 of 18
+## Question 10 of 18
 
 **Name an old wives' tale for guessing a baby's gender.**
 
@@ -153,7 +140,7 @@
 | **5** | Morning Sickness | 10 |
 | **6** | Mom's Glow | 7 |
 
-## Question 12 of 18
+## Question 11 of 18
 
 **Name something that keeps new parents up at night.**
 
@@ -166,7 +153,7 @@
 | **5** | Baby Monitor | 7 |
 | **6** | Teething | 5 |
 
-## Question 13 of 18
+## Question 12 of 18
 
 **Name a word people blurt out when they see a cute baby.**
 
@@ -179,7 +166,7 @@
 | **5** | So Tiny! | 8 |
 | **6** | Sweet | 4 |
 
-## Question 14 of 18
+## Question 13 of 18
 
 **Name something that is BLUE.**
 
@@ -192,7 +179,7 @@
 | **5** | A Sapphire | 10 |
 | **6** | Blue Jay | 7 |
 
-## Question 15 of 18
+## Question 14 of 18
 
 **Name something that is PINK.**
 
@@ -205,7 +192,7 @@
 | **5** | A Rose | 12 |
 | **6** | Cupcake Frosting | 7 |
 
-## Question 16 of 18
+## Question 15 of 18
 
 **Name a reason a toddler throws a tantrum.**
 
@@ -218,7 +205,7 @@
 | **5** | Wrong Color Cup | 8 |
 | **6** | Nothing at All | 6 |
 
-## Question 17 of 18
+## Question 16 of 18
 
 **Name something grandparents love to do with a new grandbaby.**
 
@@ -231,7 +218,7 @@
 | **5** | Brag About Them | 11 |
 | **6** | Cuddle | 6 |
 
-## Question 18 of 18
+## Question 17 of 18
 
 **Besides 'Mama' or 'Dada', name a baby's first word.**
 
@@ -243,6 +230,19 @@
 | **4** | Ball | 15 |
 | **5** | Uh-oh | 12 |
 | **6** | Baba (Bottle) | 7 |
+
+## Question 18 of 18
+
+**What foods has Casey craved during her pregnancy so far?**
+
+| # | Answer | Points |
+|---|--------|-------:|
+| **1** | Pickles with Tajín | 28 |
+| **2** | Melons | 22 |
+| **3** | Enchiladas & Tacos | 18 |
+| **4** | Hot Buffalo Wings | 14 |
+| **5** | Tuna Salad + Vinegar | 10 |
+| **6** | Pizza with Mustard | 8 |
 
 ---
 

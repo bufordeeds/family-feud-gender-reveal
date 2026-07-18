@@ -13,17 +13,6 @@
  */
 const QUESTIONS = [
   {
-    prompt: "What foods has Casey craved during her pregnancy so far?",
-    answers: [
-      { text: "Pickles with Tajín", points: 28 },
-      { text: "Melons", points: 22 },
-      { text: "Enchiladas & Tacos", points: 18 },
-      { text: "Hot Buffalo Wings", points: 14 },
-      { text: "Tuna Salad + Vinegar", points: 10 },
-      { text: "Pizza with Mustard", points: 8 },
-    ],
-  },
-  {
     prompt: "Name something a baby spends a lot of time doing.",
     answers: [
       { text: "Sleeping", points: 34 },
@@ -208,6 +197,17 @@ const QUESTIONS = [
       { text: "Ball", points: 15 },
       { text: "Uh-oh", points: 12 },
       { text: "Baba (Bottle)", points: 7 },
+    ],
+  },
+  {
+    prompt: "What foods has Casey craved during her pregnancy so far?",
+    answers: [
+      { text: "Pickles with Tajín", points: 28 },
+      { text: "Melons", points: 22 },
+      { text: "Enchiladas & Tacos", points: 18 },
+      { text: "Hot Buffalo Wings", points: 14 },
+      { text: "Tuna Salad + Vinegar", points: 10 },
+      { text: "Pizza with Mustard", points: 8 },
     ],
   },
 ];
